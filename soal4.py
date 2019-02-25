@@ -1,0 +1,72 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+campak=pd.read_csv('Campak.csv',header=0,na_values=['n.a'])
+campak=campak.interpolate()
+print(campak) 
+BCG=pd.read_csv('BCG.csv',header=0,na_values=['n.a'])
+BCG=BCG.interpolate()
+print(BCG)
+DPT=pd.read_csv('DPT.csv',header=0,na_values=['n.a'])
+DPT=DPT.interpolate()
+print(DPT)
+Polio=pd.read_csv('Polio.csv',header=0,na_values=['n.a'])
+Polio=Polio.interpolate()
+print(Polio)
+
+## GAMBAR TERIMUNISASI
+plt.figure('Persentasi balita terimunisasi 1995-2017',figsize=(12,7))
+a=plt.subplot(2,2,1)
+plt.bar(BCG.iloc[:,0],BCG.iloc[:,1],color='red')
+a.set_title("BCG",fontsize=8)
+plt.xticks(BCG.iloc[:,0],rotation=90)
+a.tick_params(axis='both',labelsize=6)
+b=plt.subplot(2,2,2)
+plt.bar(campak.iloc[:,0],campak.iloc[:,1],color='green')
+plt.xticks(campak.iloc[:,0],rotation=90)
+b.set_title("Campak",fontsize=8)
+b.tick_params(axis='both',labelsize=6)
+c=plt.subplot(2,2,3)
+plt.bar(DPT.iloc[:,0],DPT.iloc[:,1],color='yellow')
+plt.xticks(DPT.iloc[:,0],rotation=90)
+c.tick_params(axis='both',labelsize=6)
+c.set_title("DPT",fontsize=8)
+d=plt.subplot(2,2,4)
+plt.bar(Polio.iloc[:,0],Polio.iloc[:,1],color='blue')
+plt.xticks(Polio.iloc[:,0],rotation=90)
+d.set_title("Polio",fontsize=8)
+d.tick_params(axis='both',labelsize=6)
+
+##GAMBAR TAK TERIMUNISASI
+seratusbcg=np.repeat(100,len(BCG))
+seratuscampak=np.repeat(100,len(campak))
+seratusdpt=np.repeat(100,len(DPT))
+seratuspol=np.repeat(100,len(Polio))
+xbcg=seratusbcg-BCG.iloc[:,1]
+xcampak=seratuscampak-campak.iloc[:,1]
+xdpt=seratusdpt-DPT.iloc[:,1]
+xpol=seratuspol-Polio.iloc[:,1]
+plt.figure('Persentasi balita tak terimunisasi 1995-2017',figsize=(12,7))
+a=plt.subplot(2,2,1)
+plt.bar(BCG.iloc[:,0],xbcg,color='red')
+a.set_title("BCG",fontsize=8)
+plt.xticks(BCG.iloc[:,0],rotation=90)
+a.tick_params(axis='both',labelsize=6)
+b=plt.subplot(2,2,2)
+plt.bar(campak.iloc[:,0],xcampak,color='green')
+plt.xticks(campak.iloc[:,0],rotation=90)
+b.set_title("Campak",fontsize=8)
+b.tick_params(axis='both',labelsize=6)
+c=plt.subplot(2,2,3)
+plt.bar(DPT.iloc[:,0],xdpt,color='yellow')
+plt.xticks(DPT.iloc[:,0],rotation=90)
+c.tick_params(axis='both',labelsize=6)
+c.set_title("DPT",fontsize=8)
+d=plt.subplot(2,2,4)
+plt.bar(Polio.iloc[:,0],xpol,color='blue')
+plt.xticks(Polio.iloc[:,0],rotation=90)
+d.set_title("Polio",fontsize=8)
+d.tick_params(axis='both',labelsize=6)
+plt.show()
+
+
